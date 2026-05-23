@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Economy Trend Report Archive</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F3EE;
+    --surface: #FDFCF9;
+    --surface2: #F0EDE6;
+    --text-primary: #1A1A18;
+    --text-secondary: #4A4A44;
+    --text-muted: #9A9A90;
+    --accent: #1A56C4;
+    --accent-dim: #E6EEFB;
+    --border: #DDD9D0;
+    --border-strong: #C8C4BC;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+    padding: 56px 24px 96px;
+  }
+
+  .page-wrapper { max-width: 680px; margin: 0 auto; }
+
+  /* HEADER */
+  .page-header {
+    margin-bottom: 56px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .report-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .report-label::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+
+  .page-header h1 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+
+  .page-header h1 span { color: var(--accent); }
+
+  .page-header p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.85;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* REPORT LIST */
+  .report-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 56px;
+  }
+
+  .report-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: border-color 0.2s, background 0.15s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 24px;
+    cursor: pointer;
+  }
+
+  .report-item:hover {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  .report-num {
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    width: 24px;
+    text-align: right;
+  }
+
+  .report-date {
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    min-width: 100px;
+  }
+
+  .report-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--border-strong);
+    flex-shrink: 0;
+  }
+
+  .report-title {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    transition: color 0.15s;
+  }
+
+  .report-item:hover .report-title {
+    color: var(--text-primary);
+  }
+
+  .report-arrow {
+    flex-shrink: 0;
+    color: var(--text-muted);
+    transition: transform 0.2s, color 0.15s;
+  }
+
+  .report-item:hover .report-arrow {
+    transform: translateX(3px);
+    color: var(--accent);
+  }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-muted);
+    font-size: 13px;
+    border: 1px dashed var(--border);
+    border-radius: 3px;
+    background: var(--surface);
+  }
+
+  /* HOW TO ADD */
+  .how-to {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 24px 28px;
+    margin-bottom: 40px;
+  }
+
+  .how-to h3 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  .how-to ol {
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .how-to ol li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .how-to ol li .step-num {
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .how-to code {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 2px;
+    color: var(--accent);
+  }
+
+  /* FOOTER */
+  .page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ANIMATION */
+  .report-item {
+    opacity: 0;
+    transform: translateY(6px);
+    animation: fadeUp 0.3s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <header class="page-header">
+    <p class="report-label">Archive</p>
+    <h1>Economy &amp; <span>Trend</span> Report</h1>
+    <p>리테일·트렌드 업계 분석 리포트 아카이브 — 날짜를 클릭하면 해당 리포트로 이동합니다.</p>
+  </header>
+
+  <p class="section-label">리포트 목록</p>
+
+  <div class="report-list" id="reportList">
+    <!-- 새 리포트를 추가할 때 아래 형식으로 복사해서 붙여넣으세요 -->
+
+    <a class="report-item" href="./2026-05-22.html" style="animation-delay: 0.05s">
+      <span class="report-num">01</span>
+      <span class="report-date">2026-05-22</span>
+      <span class="report-divider"></span>
+      <span class="report-title">리테일·트렌드 업계 분석 리포트</span>
+      <svg class="report-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <!-- 다음 리포트 예시 (복사해서 사용하세요):
+    <a class="report-item" href="./2026-05-23.html" style="animation-delay: 0.1s">
+      <span class="report-num">02</span>
+      <span class="report-date">2026-05-23</span>
+      <span class="report-divider"></span>
+      <span class="report-title">리포트 제목을 여기에</span>
+      <svg class="report-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    -->
+
+  </div>
+
+  <div class="how-to">
+    <h3>새 리포트 추가하는 법</h3>
+    <ol>
+      <li>
+        <span class="step-num">01</span>
+        <span>새 HTML 파일을 <code>YYYY-MM-DD.html</code> 형식으로 저장</span>
+      </li>
+      <li>
+        <span class="step-num">02</span>
+        <span>GitHub 저장소에 파일 업로드</span>
+      </li>
+      <li>
+        <span class="step-num">03</span>
+        <span>이 <code>index.html</code> 파일에서 위 주석 부분을 복사해 새 항목 추가 후 업로드</span>
+      </li>
+      <li>
+        <span class="step-num">04</span>
+        <span>노션 페이지에 새 URL 임베드</span>
+      </li>
+    </ol>
+  </div>
+
+  <footer class="page-footer">
+    <span>Economy Trend Report Archive</span>
+    <span>Nagyeong-creator</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
