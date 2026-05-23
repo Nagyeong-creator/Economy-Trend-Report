@@ -440,10 +440,54 @@
     flex-wrap: wrap;
     gap: 8px;
   }
+
+  /* ── BACK BUTTON ── */
+  .back-nav {
+    margin-bottom: 32px;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--surface);
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .back-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  .back-btn svg {
+    transition: transform 0.15s;
+  }
+
+  .back-btn:hover svg {
+    transform: translateX(-3px);
+  }
 </style>
 </head>
 <body>
 <div class="page-wrapper">
+
+  <nav class="back-nav">
+    <a class="back-btn" href="https://nagyeong-creator.github.io/Economy-Trend-Report/">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <path d="M13 8H3M7 4l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      목록으로 돌아가기
+    </a>
+  </nav>
 
   <header class="page-header">
     <p class="report-label">Industry Report · Retail / Trend / Marketing</p>
