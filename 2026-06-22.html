@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>패션·뷰티·마케팅 업계 분석 리포트</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F5F3EE; --surface: #FDFCF9; --surface2: #F0EDE6;
+    --text-primary: #1A1A18; --text-secondary: #4A4A44; --text-muted: #9A9A90;
+    --accent: #1A56C4; --accent-dim: #E6EEFB;
+    --border: #DDD9D0; --border-strong: #C8C4BC;
+    --teal: #0A7A64; --teal-dim: #E0F5F0;
+    --purple: #5B3FA8; --purple-dim: #EEEAFB;
+    --amber: #96580A; --amber-dim: #FDF3E0;
+    --coral: #B83030; --coral-dim: #FBEBEB;
+    --green: #1E7A3A; --green-dim: #E6F7EC;
+    --bonus: #6B3FA0; --bonus-dim: #F0EAFF;
+  }
+  body { background:var(--bg); color:var(--text-primary); font-family:'Noto Sans KR',sans-serif; font-weight:300; line-height:1.7; min-height:100vh; padding:56px 24px 96px; }
+  .page-wrapper { max-width:780px; margin:0 auto; }
+  .page-header { margin-bottom:60px; padding-bottom:36px; border-bottom:1px solid var(--border); }
+  .report-label { font-size:10px; font-weight:700; letter-spacing:0.2em; color:var(--accent); text-transform:uppercase; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .report-label::before { content:''; display:inline-block; width:6px; height:6px; background:var(--accent); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+  .page-header h1 { font-family:'Noto Serif KR',serif; font-size:34px; font-weight:700; line-height:1.35; color:var(--text-primary); margin-bottom:16px; }
+  .page-header h1 span { color:var(--accent); }
+  .page-header p { font-size:14px; color:var(--text-secondary); line-height:1.85; max-width:640px; }
+  .header-meta { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+  .header-meta span { font-size:12px; color:var(--text-muted); display:flex; align-items:center; gap:6px; padding:5px 12px; border:1px solid var(--border); border-radius:2px; background:var(--surface); }
+  .section-label { font-size:10px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+
+  /* 종합 분석 카드 */
+  .analysis-card { background:var(--surface); border:1px solid var(--border); border-radius:3px; overflow:hidden; margin-bottom:56px; }
+  .analysis-card-header { padding:22px 28px; border-bottom:1px solid var(--border); background:var(--surface2); display:flex; align-items:flex-start; gap:14px; }
+  .card-icon { flex-shrink:0; width:36px; height:36px; border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+  .icon-blue { background:var(--accent-dim); } .icon-amber { background:var(--amber-dim); } .icon-bonus { background:var(--bonus-dim); }
+  .analysis-card-header h2 { font-family:'Noto Serif KR',serif; font-size:16px; font-weight:600; color:var(--text-primary); line-height:1.4; margin-bottom:4px; }
+  .analysis-card-header .sub { font-size:12px; color:var(--text-muted); }
+  .analysis-card-body { padding:28px; }
+  .trend-lead { font-family:'Noto Serif KR',serif; font-size:18px; font-weight:600; color:var(--accent); line-height:1.65; margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+  .trend-para { font-size:13.5px; color:var(--text-secondary); line-height:1.95; margin-bottom:18px; }
+  .structural-list { list-style:none; margin:16px 0 0; }
+  .structural-list li { display:flex; gap:12px; font-size:13.5px; color:var(--text-secondary); line-height:1.75; padding:10px 0; border-bottom:1px solid var(--border); }
+  .structural-list li:last-child { border-bottom:none; }
+  .li-num { flex-shrink:0; font-weight:700; color:var(--accent); font-size:12px; padding-top:2px; font-family:'Noto Serif KR',serif; min-width:18px; }
+
+  /* 공통 아코디언 */
+  .accordion-group { display:flex; flex-direction:column; gap:3px; margin-bottom:56px; }
+  .accordion-item { background:var(--surface); border:1px solid var(--border); border-radius:3px; overflow:hidden; transition:border-color 0.2s; }
+  .accordion-item.open { border-color:var(--accent); }
+  .accordion-trigger { width:100%; background:none; border:none; cursor:pointer; padding:20px 24px; display:flex; align-items:center; gap:16px; text-align:left; transition:background 0.15s; }
+  .accordion-trigger:hover { background:var(--accent-dim); }
+  .accordion-item.open .accordion-trigger { background:var(--accent-dim); }
+  .article-num-badge { flex-shrink:0; width:30px; height:30px; border-radius:50%; background:var(--surface2); border:1px solid var(--border-strong); color:var(--text-secondary); font-size:12px; font-weight:500; display:flex; align-items:center; justify-content:center; transition:all 0.2s; font-family:'Noto Serif KR',serif; }
+  .accordion-item.open .article-num-badge { background:var(--accent-dim); border-color:var(--accent); color:var(--accent); }
+  .trigger-text { flex:1; }
+  .trigger-category { font-size:10px; font-weight:700; color:var(--text-muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:5px; }
+  .trigger-title { font-size:15px; font-weight:500; color:var(--text-primary); line-height:1.45; transition:color 0.15s; }
+  .accordion-item.open .trigger-title { color:var(--accent); }
+  .accordion-arrow { flex-shrink:0; color:var(--text-muted); transition:transform 0.35s cubic-bezier(0.4,0,0.2,1), color 0.2s; }
+  .accordion-item.open .accordion-arrow { transform:rotate(180deg); color:var(--accent); }
+  .accordion-body { max-height:0; overflow:hidden; transition:max-height 0.42s cubic-bezier(0.4,0,0.2,1); }
+  .accordion-body-inner { padding:0 24px 28px; border-top:1px solid var(--border); }
+
+  /* 기사 내부 */
+  .summary-block { margin-top:22px; margin-bottom:24px; }
+  .block-label { font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+  .summary-text { font-size:13.5px; color:var(--text-secondary); line-height:1.9; }
+  .insights-block { margin-bottom:20px; }
+  .insight-item { display:flex; gap:14px; padding:13px 0; border-bottom:1px solid var(--border); }
+  .insight-item:last-child { border-bottom:none; }
+  .insight-num { flex-shrink:0; font-size:11px; font-weight:700; color:var(--accent); font-family:'Noto Serif KR',serif; padding-top:2px; min-width:20px; }
+  .insight-text { font-size:13.5px; color:var(--text-primary); line-height:1.75; }
+  .tag-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:18px; }
+  .tag { font-size:11px; font-weight:500; padding:4px 11px; border-radius:2px; letter-spacing:0.04em; }
+  .tag-blue   { background:var(--accent-dim); color:var(--accent);  border:1px solid rgba(26,86,196,0.2); }
+  .tag-teal   { background:var(--teal-dim);   color:var(--teal);   border:1px solid rgba(10,122,100,0.2); }
+  .tag-purple { background:var(--purple-dim); color:var(--purple); border:1px solid rgba(91,63,168,0.2); }
+  .tag-amber  { background:var(--amber-dim);  color:var(--amber);  border:1px solid rgba(150,88,10,0.2); }
+  .tag-coral  { background:var(--coral-dim);  color:var(--coral);  border:1px solid rgba(184,48,48,0.2); }
+  .tag-green  { background:var(--green-dim);  color:var(--green);  border:1px solid rgba(30,122,58,0.2); }
+
+  /* 마케팅 시사점 아코디언 */
+  .section-accordion { background:var(--surface); border:1px solid var(--border); border-radius:3px; overflow:hidden; transition:border-color 0.2s; margin-bottom:3px; }
+  .section-accordion.open { border-color:var(--amber); }
+  .section-accordion-trigger { width:100%; background:var(--surface2); border:none; cursor:pointer; padding:22px 28px; display:flex; align-items:center; gap:14px; text-align:left; transition:background 0.15s; }
+  .section-accordion.open .section-accordion-trigger { background:var(--amber-dim); }
+  .section-trigger-text { flex:1; }
+  .section-trigger-text h2 { font-family:'Noto Serif KR',serif; font-size:16px; font-weight:600; color:var(--text-primary); line-height:1.4; margin-bottom:4px; transition:color 0.15s; }
+  .section-accordion.open .section-trigger-text h2 { color:var(--amber); }
+  .section-trigger-text .sub { font-size:12px; color:var(--text-muted); }
+  .section-accordion .accordion-arrow { color:var(--text-muted); transition:transform 0.35s cubic-bezier(0.4,0,0.2,1), color 0.2s; }
+  .section-accordion.open .accordion-arrow { transform:rotate(180deg); color:var(--amber); }
+  .mkt-point { margin-bottom:28px; padding-bottom:28px; border-bottom:1px solid var(--border); }
+  .mkt-point:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .mkt-point-header { display:flex; align-items:baseline; gap:10px; margin-bottom:10px; }
+  .mkt-point-num { font-size:11px; font-weight:700; color:var(--amber); font-family:'Noto Serif KR',serif; flex-shrink:0; }
+  .mkt-point-title { font-size:15px; font-weight:500; color:var(--text-primary); line-height:1.4; }
+  .mkt-point-body { font-size:13.5px; color:var(--text-secondary); line-height:1.9; padding-left:22px; }
+  .mkt-callout { margin-top:12px; padding:12px 16px; background:var(--amber-dim); border-left:2px solid var(--amber); border-radius:0 2px 2px 0; font-size:12.5px; color:var(--amber); line-height:1.75; }
+  .mkt-callout strong { font-weight:700; }
+
+  /* BONUS 아코디언 */
+  .bonus-accordion { background:var(--surface); border:1px solid var(--border); border-radius:3px; overflow:hidden; transition:border-color 0.2s; margin-bottom:3px; }
+  .bonus-accordion.open { border-color:var(--bonus); }
+  .bonus-accordion-trigger { width:100%; background:var(--surface2); border:none; cursor:pointer; padding:22px 28px; display:flex; align-items:center; gap:14px; text-align:left; transition:background 0.15s; }
+  .bonus-accordion.open .bonus-accordion-trigger { background:var(--bonus-dim); }
+  .bonus-trigger-text { flex:1; }
+  .bonus-badge { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--bonus); background:var(--bonus-dim); border:1px solid rgba(107,63,160,0.25); border-radius:2px; padding:3px 8px; margin-bottom:6px; }
+  .bonus-trigger-text h2 { font-family:'Noto Serif KR',serif; font-size:16px; font-weight:600; color:var(--text-primary); line-height:1.4; transition:color 0.15s; }
+  .bonus-accordion.open .bonus-trigger-text h2 { color:var(--bonus); }
+  .bonus-accordion .accordion-arrow { color:var(--text-muted); transition:transform 0.35s cubic-bezier(0.4,0,0.2,1), color 0.2s; }
+  .bonus-accordion.open .accordion-arrow { transform:rotate(180deg); color:var(--bonus); }
+  .bonus-body-inner { padding:28px; border-top:1px solid var(--border); }
+  .bonus-connection { margin-bottom:28px; padding-bottom:28px; border-bottom:1px solid var(--border); }
+  .bonus-connection:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .bonus-connection-header { display:flex; align-items:baseline; gap:10px; margin-bottom:12px; }
+  .bonus-connection-num { font-size:11px; font-weight:700; color:var(--bonus); font-family:'Noto Serif KR',serif; flex-shrink:0; }
+  .bonus-connection-title { font-size:15px; font-weight:500; color:var(--text-primary); line-height:1.4; }
+  .bonus-row { display:flex; flex-direction:column; gap:8px; padding-left:22px; margin-bottom:10px; }
+  .bonus-row-item { font-size:13px; color:var(--text-secondary); line-height:1.75; display:flex; gap:8px; }
+  .bonus-row-label { flex-shrink:0; font-weight:700; font-size:11px; color:var(--bonus); padding-top:2px; min-width:72px; }
+  .bonus-callout { margin-top:10px; padding:12px 16px; background:var(--bonus-dim); border-left:2px solid var(--bonus); border-radius:0 2px 2px 0; font-size:12.5px; color:var(--bonus); line-height:1.75; }
+  .bonus-callout strong { font-weight:700; }
+  .econ-block { margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+  .econ-block:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .econ-row { display:flex; gap:8px; font-size:13px; color:var(--text-secondary); line-height:1.75; margin-bottom:8px; }
+  .econ-label { flex-shrink:0; font-weight:700; font-size:11px; color:var(--teal); min-width:72px; padding-top:2px; }
+  .econ-callout { margin-top:10px; padding:12px 16px; background:var(--teal-dim); border-left:2px solid var(--teal); border-radius:0 2px 2px 0; font-size:12.5px; color:var(--teal); line-height:1.75; }
+  .econ-callout strong { font-weight:700; }
+
+  .page-footer { margin-top:60px; padding-top:24px; border-top:1px solid var(--border); font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <header class="page-header">
+    <p class="report-label">Industry Report · Fashion / Beauty / Marketing</p>
+    <h1>광고가 아닌 <span>취향</span>으로<br>브랜드가 연결되는 시대</h1>
+    <p>채널×채널 협업, K뷰티 글로벌 질주, 말차코어, 운세 마케팅, 교촌의 식문화 브랜드화, 셀럽 시딩 전략까지 — 6개 기사로 읽는 패션·뷰티·마케팅 업계의 새로운 공식</p>
+    <div class="header-meta">
+      <span>📰 기사 6건 분석</span>
+      <span>📅 2026. 06. 22</span>
+      <span>🏷 패션 · 뷰티 · F&amp;B · 마케팅</span>
+    </div>
+  </header>
+
+  <!-- 1. 종합 분석 (최상단, 아코디언 없음) -->
+  <p class="section-label">종합 분석</p>
+  <div class="analysis-card">
+    <div class="analysis-card-header">
+      <div class="card-icon icon-blue">🔍</div>
+      <div>
+        <h2>요즘 패션·뷰티·마케팅 업계의 흐름 — 통합 트렌드 분석</h2>
+        <p class="sub">6개 기사를 관통하는 구조적 맥락</p>
+      </div>
+    </div>
+    <div class="analysis-card-body">
+      <p class="trend-lead">"소비자는 이제 브랜드가 말하는 것을 믿지 않는다.<br>브랜드가 어떤 취향과 연결되어 있는가,<br>누가 자연스럽게 선택하는가를 본다."</p>
+      <p class="trend-para">6개 기사가 공통적으로 가리키는 방향은 하나다. 직접적 설득의 시대가 끝나고, 취향·정체성·맥락을 통한 간접 연결의 시대가 열리고 있다. LF×코스맥스는 제품 대신 팬덤을 교환했고, 크록스는 광고 대신 우연한 착용 장면을 설계했으며, 교촌은 치킨 대신 식문화 세계관을 팔았다. K뷰티가 글로벌을 장악한 것도, 말차코어가 식품을 넘어 뷰티·패션까지 번진 것도 모두 '이미지와 취향의 전이' 덕분이다.</p>
+      <p class="trend-para">이 흐름의 구조적 동인 세 가지:</p>
+      <ul class="structural-list">
+        <li><span class="li-num">①</span><span>광고 불신의 구조화 — 소비자는 브랜드 주도 메시지보다 제3자의 자연스러운 선택을 훨씬 강하게 신뢰한다. 모든 마케팅이 '광고처럼 보이지 않는 방향'으로 재설계되고 있다.</span></li>
+        <li><span class="li-num">②</span><span>취향의 크로스오버 — 먹는 것의 이미지가 바르는 것과 입는 것으로 전이되고, 운세가 커피 한 잔의 맥락이 된다. 카테고리 경계가 허물어진 소비 문화.</span></li>
+        <li><span class="li-num">③</span><span>SNS가 모든 전략의 전제조건 — K뷰티 인디 브랜드, 말차코어, 시딩 전략 모두 SNS 최적화가 없으면 작동하지 않는다. SNS는 이제 채널이 아니라 시장 그 자체다.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. 기사별 아코디언 -->
+  <p class="section-label">기사별 요약 및 인사이트</p>
+  <div class="accordion-group">
+
+    <div class="accordion-item" id="item-1">
+      <button class="accordion-trigger" onclick="toggle('item-1')" aria-expanded="false">
+        <div class="article-num-badge">1</div>
+        <div class="trigger-text">
+          <p class="trigger-category">패션 · 뷰티 · 채널 협업</p>
+          <p class="trigger-title">LF × 코스맥스 — 브랜드 협업의 진화, '제품'이 아닌 '팬덤'을 교환한다</p>
+        </div>
+        <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="summary-block"><p class="block-label">요약</p><p class="summary-text">LF의 인스타그램 채널 '나인투식스매거진'과 코스맥스 공식 채널이 공동 콘텐츠를 제작했다. 제품 홍보 대신 게임 형식의 취향 콘텐츠를 선보였고, 업로드 3일 만에 평균 조회수 대비 2배 이상을 기록했다. 핵심은 '브랜드와 브랜드'의 협업이 아닌 '채널 IP와 채널 IP'의 팬덤 교환이라는 점이다. 코스맥스는 SSG닷컴과도 인디 브랜드 육성 협약을 맺는 등 협업 방식 자체를 다변화하고 있다.</p></div>
+        <div class="insights-block"><p class="block-label">핵심 인사이트 3</p>
+          <div class="insight-item"><span class="insight-num">01</span><p class="insight-text">기업 SNS 채널이 이제 독립적인 IP이자 팬덤 자산이 됐다. 채널을 '공지판'이 아닌 '브랜드 미디어'로 키운 기업만이 이 협업 모델에 참여할 수 있다.</p></div>
+          <div class="insight-item"><span class="insight-num">02</span><p class="insight-text">공통 타깃(20~30대 여성)을 가진 이종 업종 브랜드 간 팬덤 교환은 광고비 없이 신규 고객을 획득하는 가장 효율적인 구조다.</p></div>
+          <div class="insight-item"><span class="insight-num">03</span><p class="insight-text">제품이 아닌 콘텐츠 재미에 집중한 것이 핵심 — 소비자가 '광고를 봤다'가 아니라 '재미있는 콘텐츠를 봤다'고 느끼는 순간 브랜드 호감도가 쌓인다.</p></div>
+        </div>
+        <div class="tag-row"><span class="tag tag-blue">채널 IP 협업</span><span class="tag tag-teal">팬덤 교환</span><span class="tag tag-purple">콘텐츠 마케팅</span><span class="tag tag-amber">이종 업종 시너지</span></div>
+      </div></div>
+    </div>
+
+    <div class="accordion-item" id="item-2">
+      <button class="accordion-trigger" onclick="toggle('item-2')" aria-expanded="false">
+        <div class="article-num-badge">2</div>
+        <div class="trigger-text">
+          <p class="trigger-category">K뷰티 · 글로벌 시장</p>
+          <p class="trigger-title">K뷰티 글로벌 질주 — 선크림·립·아이섀도 전 카테고리 일본 장악, 수출은 유럽으로</p>
+        </div>
+        <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="summary-block"><p class="block-label">요약</p><p class="summary-text">큐텐재팬 뷰티 카테고리에서 선크림·립·아이섀도·치크 전 부문 상위권을 K뷰티가 장악했다. 스킨1004, 아누아, 에이프릴스킨, 롬앤 등 인디 브랜드의 약진이 두드러진다. 수출 시장도 중국 중심에서 탈피해 2025년 미국이 처음 1위에 올랐고, 2026년 1분기에는 유럽이 미국을 제쳤다. SNS 숏폼 콘텐츠가 글로벌 소비자의 자발적 구매를 이끄는 핵심 경로다.</p></div>
+        <div class="insights-block"><p class="block-label">핵심 인사이트 3</p>
+          <div class="insight-item"><span class="insight-num">01</span><p class="insight-text">K뷰티의 경쟁력이 마스크팩·기초 → 선케어·색조·기능성까지 전방위로 확장됐다. 카테고리 깊이가 넓어졌다는 건 유행이 아닌 구조적 강자가 됐다는 신호.</p></div>
+          <div class="insight-item"><span class="insight-num">02</span><p class="insight-text">인디 브랜드들이 대기업보다 빠르게 글로벌 상위권을 차지하고 있다 — 빠른 트렌드 반응력과 SNS 최적화된 패키지·제형이 대기업의 마케팅 예산을 이기고 있다.</p></div>
+          <div class="insight-item"><span class="insight-num">03</span><p class="insight-text">수출 1위가 중국→미국→유럽 순으로 이동한 것은 단순 지역 다변화가 아니다. K뷰티가 '아시아 트렌드'에서 '글로벌 스탠더드'로 격상되고 있다는 구조적 변화다.</p></div>
+        </div>
+        <div class="tag-row"><span class="tag tag-blue">K뷰티 글로벌</span><span class="tag tag-teal">인디 브랜드</span><span class="tag tag-green">수출 다변화</span><span class="tag tag-coral">SNS 구매 전환</span></div>
+      </div></div>
+    </div>
+
+    <div class="accordion-item" id="item-3">
+      <button class="accordion-trigger" onclick="toggle('item-3')" aria-expanded="false">
+        <div class="article-num-badge">3</div>
+        <div class="trigger-text">
+          <p class="trigger-category">트렌드 컬러 · 크로스 카테고리</p>
+          <p class="trigger-title">말차코어 — 먹는 트렌드가 바르고 입는 트렌드로 번지는 법</p>
+        </div>
+        <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="summary-block"><p class="block-label">요약</p><p class="summary-text">식품에서 시작된 말차 열풍이 뷰티(에스쁘아 말차 BB, 페리페라 말차 립글로스, AGE20'S 말차 에센스)와 패션(형지I&amp;C × 글라쇼 아이스크림 컬렉션)으로 확산되고 있다. 색상 자체가 '건강하고 자연스러운 이미지'를 담고 있어 피부 보정 기능과 결합해 설득력을 얻고 있다. 특히 페리페라 립글로스는 일본 선출시 후 국내 소비자 요청으로 역수입된 사례다.</p></div>
+        <div class="insights-block"><p class="block-label">핵심 인사이트 3</p>
+          <div class="insight-item"><span class="insight-num">01</span><p class="insight-text">트렌드는 카테고리를 가로질러 이동한다. '먹는 말차'의 이미지(건강·자연·힙함)가 바르는 제품과 입는 제품의 구매 명분을 동시에 만들어준다.</p></div>
+          <div class="insight-item"><span class="insight-num">02</span><p class="insight-text">색상 트렌드는 시각적 비주얼이 SNS 피드에 최적화될 때 폭발한다. 말차 그린은 사진에서 특히 도드라지는 색감 — 콘텐츠 생산자가 자연스럽게 선택하게 되는 구조다.</p></div>
+          <div class="insight-item"><span class="insight-num">03</span><p class="insight-text">일본 선출시→국내 역수입 사례는 글로벌 수요가 국내 출시 결정을 역으로 이끄는 구조를 보여준다. 소비자 요청이 곧 마케팅 근거가 된다.</p></div>
+        </div>
+        <div class="tag-row"><span class="tag tag-green">말차코어</span><span class="tag tag-blue">크로스 카테고리</span><span class="tag tag-teal">컬러 트렌드</span><span class="tag tag-amber">이미지 소비</span></div>
+      </div></div>
+    </div>
+
+    <div class="accordion-item" id="item-4">
+      <button class="accordion-trigger" onclick="toggle('item-4')" aria-expanded="false">
+        <div class="article-num-badge">4</div>
+        <div class="trigger-text">
+          <p class="trigger-category">F&amp;B · 운세 마케팅</p>
+          <p class="trigger-title">MBTI 다음은 사주 오행 — F&amp;B 업계까지 번진 '운세 마케팅' 각축전</p>
+        </div>
+        <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="summary-block"><p class="block-label">요약</p><p class="summary-text">2030 세대에서 사주·명리학이 MBTI를 잇는 '자기 탐색 놀이 문화'로 급부상하면서 F&amp;B 업계가 운세 마케팅에 뛰어들고 있다. 국내 첫 운세 박람회는 사전 신청 1만 명, 500명 오픈런을 기록했다. 이디야커피는 사주 오행 기반 개운부적 이벤트를, 바나프레소는 영수증 운세 출력을 운영 중이다. SNS 운세 관련 언급량은 전년 대비 43% 증가했으며 긍정 비율이 71%다.</p></div>
+        <div class="insights-block"><p class="block-label">핵심 인사이트 3</p>
+          <div class="insight-item"><span class="insight-num">01</span><p class="insight-text">사주·운세가 신앙이 아닌 '콘텐츠'로 소비되는 순간 마케팅 소재가 된다. 불확실성이 클수록 정서적 위안을 주는 소재에 소비자가 몰린다.</p></div>
+          <div class="insight-item"><span class="insight-num">02</span><p class="insight-text">바나프레소의 영수증 운세는 '커피를 사는 행위'에 매일의 작은 리추얼을 더한 것 — 반복 방문 동기를 만드는 가장 저비용 고효과 장치다.</p></div>
+          <div class="insight-item"><span class="insight-num">03</span><p class="insight-text">운테리어→가전→F&amp;B로 이어지는 운세 트렌드의 카테고리 확산 경로는 다음 진입 영역을 예측하게 해준다. 뷰티·패션이 그 다음 타자가 될 가능성이 높다.</p></div>
+        </div>
+        <div class="tag-row"><span class="tag tag-purple">운세 마케팅</span><span class="tag tag-blue">정서적 위안 소비</span><span class="tag tag-amber">리추얼 마케팅</span><span class="tag tag-coral">2030 자기 탐색</span></div>
+      </div></div>
+    </div>
+
+    <div class="accordion-item" id="item-5">
+      <button class="accordion-trigger" onclick="toggle('item-5')" aria-expanded="false">
+        <div class="article-num-badge">5</div>
+        <div class="trigger-text">
+          <p class="trigger-category">F&amp;B · 브랜드 확장 전략</p>
+          <p class="trigger-title">교촌 '한 여름 장터' — 치킨집이 식문화 브랜드로 확장하는 법</p>
+        </div>
+        <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="summary-block"><p class="block-label">요약</p><p class="summary-text">교촌이 신세계백화점 대구점 식품관에서 수제맥주, 전통주, 장류, 소스, 발효식초까지 아우르는 '한 여름 장터' 팝업을 열었다. 치킨 단품이 아닌 '치킨과 함께 즐기는 식문화'를 제안하는 방식으로 브랜드를 재정의하려는 시도다. 배달 프랜차이즈의 구조적 한계(수수료·가격 경쟁)를 오프라인 체험 접점으로 돌파하는 전략이다.</p></div>
+        <div class="insights-block"><p class="block-label">핵심 인사이트 3</p>
+          <div class="insight-item"><span class="insight-num">01</span><p class="insight-text">성숙기 시장에서 브랜드 확장의 방향은 '더 좋은 제품'이 아니라 '더 넓은 소비 장면'이다. 교촌은 치킨을 중심으로 페어링 가능한 모든 것을 자기 세계관으로 끌어들이고 있다.</p></div>
+          <div class="insight-item"><span class="insight-num">02</span><p class="insight-text">백화점 팝업은 단순 매출이 아닌 브랜드 세계관을 전시하는 쇼케이스다. 배달 앱에서는 절대 전달할 수 없는 '식문화 브랜드'의 이미지를 구축하는 유일한 오프라인 채널.</p></div>
+          <div class="insight-item"><span class="insight-num">03</span><p class="insight-text">단, 치킨↔수제맥주처럼 연결고리가 명확한 페어링을 중심으로 확장해야 설득력이 생긴다. 장류·식초까지의 확장이 자연스럽게 받아들여지려면 더 강한 스토리라인이 필요하다.</p></div>
+        </div>
+        <div class="tag-row"><span class="tag tag-blue">브랜드 확장</span><span class="tag tag-teal">오프라인 경험</span><span class="tag tag-amber">식문화 세계관</span><span class="tag tag-coral">프랜차이즈 탈피</span></div>
+      </div></div>
+    </div>
+
+    <div class="accordion-item" id="item-6">
+      <button class="accordion-trigger" onclick="toggle('item-6')" aria-expanded="false">
+        <div class="article-num-badge">6</div>
+        <div class="trigger-text">
+          <p class="trigger-category">셀럽 마케팅 · 시딩 전략</p>
+          <p class="trigger-title">대놓고 광고하면 역효과 — '우연한 착용 한 장면'이 어떻게 설계되는가</p>
+        </div>
+        <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="summary-block"><p class="block-label">요약</p><p class="summary-text">크록스가 NCT 태용, 아이브 가을, 에이티즈 홍중, 리센느 등 다양한 셀럽에게서 동시다발적으로 포착되며 '너도나도 신는 신발' 인식을 만들었다. 이 '우연한 노출'의 뒷단은 시딩→모니터링→바이럴 대행사 콘텐츠 업로드→커뮤니티 확산이라는 정교한 순환 구조다. 정식 광고보다 비용이 낮으면서도 '제3자 인증 효과'로 소비자 신뢰를 높인다.</p></div>
+        <div class="insights-block"><p class="block-label">핵심 인사이트 3</p>
+          <div class="insight-item"><span class="insight-num">01</span><p class="insight-text">'광고처럼 보이지 않는 광고'가 가장 효과적인 광고다 — 소비자가 '발견했다'고 느끼는 순간 구매 욕구가 극대화된다는 제3자 인증 효과의 핵심 메커니즘.</p></div>
+          <div class="insight-item"><span class="insight-num">02</span><p class="insight-text">시딩의 성패는 셀럽이 '자발적 호감'으로 착용했다는 인상을 주느냐에 달려 있다. 브랜드와 셀럽의 이미지 정합성이 전제되지 않으면 오히려 역효과가 난다.</p></div>
+          <div class="insight-item"><span class="insight-num">03</span><p class="insight-text">동시다발적 멀티 셀럽 노출이 '유행하는 것'이라는 사회적 증거를 만든다. 1인 광고보다 5인 시딩이 더 강력한 이유가 여기 있다.</p></div>
+        </div>
+        <div class="tag-row"><span class="tag tag-blue">셀럽 시딩</span><span class="tag tag-purple">제3자 인증 효과</span><span class="tag tag-teal">바이럴 설계</span><span class="tag tag-coral">사회적 증거</span></div>
+      </div></div>
+    </div>
+
+  </div>
+
+  <!-- 3. 마케팅 시사점 (아코디언) -->
+  <div class="section-accordion" id="sect-mkt">
+    <button class="section-accordion-trigger" onclick="toggleSection('sect-mkt')" aria-expanded="false">
+      <div class="card-icon icon-amber">📣</div>
+      <div class="section-trigger-text">
+        <h2>마케팅 시사점 — 20년차 본부장의 시각</h2>
+        <p class="sub">슬로건 말고, 내일 당장 쓸 수 있는 실무 언어로</p>
+      </div>
+      <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner" style="padding:28px;">
+      <div class="mkt-point">
+        <div class="mkt-point-header"><span class="mkt-point-num">01</span><p class="mkt-point-title">자사 SNS 채널을 '공지판'으로 쓰고 있다면, 지금 당장 편집장을 뽑아라</p></div>
+        <p class="mkt-point-body">LF 나인투식스매거진이 코스맥스와 협업할 수 있었던 전제는 하나다. 그 채널이 자체 팬덤을 가진 독립적인 미디어였기 때문이다. 신제품 알림, 할인 공지, 이벤트 안내로만 채워진 채널은 협업 대상이 되지 못한다. 소비자가 '이 채널 재미있어서 팔로우한다'고 느끼는 채널을 만드는 것 — 이게 지금 마케팅 예산에서 가장 ROI가 높은 곳이다. Z세대 에디터나 실무자가 직접 기획·출연하는 구조를 검토할 필요가 있다. 사람이 보이는 채널이 알고리즘도 이긴다.</p>
+        <div class="mkt-callout"><strong>즉시 실행 과제:</strong> 자사 공식 인스타그램의 최근 게시물 10개를 펼쳐놓고 물어라. "우리 팔로워가 이걸 저장하거나 공유할 이유가 있는가?" 저장율이 낮다면 채널의 정체성부터 다시 설계해야 한다.</div>
+      </div>
+      <div class="mkt-point">
+        <div class="mkt-point-header"><span class="mkt-point-num">02</span><p class="mkt-point-title">시딩은 '뿌리는 것'이 아니라 '심는 것'이다 — 이미지 정합성 없는 시딩은 돈 낭비다</p></div>
+        <p class="mkt-point-body">크록스 시딩이 효과를 낸 것은 타깃 셀럽들의 이미지가 크록스의 '편하고 자유로운' 브랜드 정체성과 맞아떨어졌기 때문이다. 시딩 예산이 있다면 가장 먼저 해야 할 일은 셀럽 팔로워 수가 아닌 '이 사람이 우리 제품을 자발적으로 선택할 법한가'를 따지는 것이다. 팔로워 100만짜리 셀럽에게 무작위로 뿌리는 것보다, 팔로워 3만짜리 셀럽이 진심으로 착용하는 한 장면이 훨씬 강하다. 브랜드와 결이 맞는 마이크로 인플루언서 10명이 메가 인플루언서 1명보다 신뢰도 면에서 우위에 있을 수 있다.</p>
+        <div class="mkt-callout"><strong>체크포인트:</strong> 최근 시딩한 셀럽 목록을 꺼내라. 그 중 '이 사람이 우리 브랜드를 실제로 좋아할 법한가'에 솔직하게 Yes라고 답할 수 있는 비율이 몇 %인가. 50% 미만이라면 시딩 방식을 바꿔야 한다.</div>
+      </div>
+      <div class="mkt-point">
+        <div class="mkt-point-header"><span class="mkt-point-num">03</span><p class="mkt-point-title">운세 마케팅이 뜨는 이유를 표면적으로 따라가지 마라 — 본질은 '정서적 위안'이다</p></div>
+        <p class="mkt-point-body">이디야가 사주 오행 이벤트를 하고 바나프레소가 영수증 운세를 넣는 것을 보고 "우리도 운세 콘텐츠 만들자"고 반응하는 것은 전형적인 트렌드 미러링 함정이다. 중요한 건 운세 자체가 아니라, 불확실성이 큰 시대에 소비자가 '작은 확신과 위안'을 원한다는 욕망이다. 그 욕망을 채우는 방식이 반드시 운세일 필요는 없다. 우리 브랜드가 소비자에게 줄 수 있는 '소소한 정서적 위안'이 무엇인가를 먼저 찾아야 한다.</p>
+        <div class="mkt-callout"><strong>판단 기준:</strong> 경쟁사가 운세 마케팅을 한다고 따라 하기 전에, "이게 우리 브랜드 톤앤매너와 맞는가"를 먼저 물어라. 맞지 않는 트렌드를 따라가다가 브랜드 정체성이 흐려지는 게 더 큰 리스크다.</div>
+      </div>
+      <div class="mkt-point">
+        <div class="mkt-point-header"><span class="mkt-point-num">04</span><p class="mkt-point-title">카테고리 확장을 결정하기 전에 '연결고리'를 먼저 설계하라 — 교촌의 과제가 우리 과제다</p></div>
+        <p class="mkt-point-body">교촌의 전통주·장류 확장은 방향은 맞지만 '치킨과 전통주는 같이 먹는다'는 소비 장면 연결이 전제돼야 한다. 어떤 브랜드든 새로운 카테고리로 확장할 때 소비자가 즉시 납득하는 '그 둘이 왜 같이 있는가'의 이유가 없으면 확장이 아닌 분산이 된다. 말차코어처럼 '이미지와 정서'가 공유될 때 크로스오버가 자연스럽다. 카테고리 확장 기획서에 반드시 "소비자가 이 두 가지를 같은 맥락에서 떠올리는 순간이 언제인가"를 적어야 한다.</p>
+        <div class="mkt-callout"><strong>실무 적용:</strong> 자사 브랜드가 확장을 검토 중인 카테고리가 있다면, 소비자 인터뷰 없이 기획서를 쓰지 마라. "우리 브랜드가 거기까지 간다고?" 반응이 나오면 연결고리 설계가 덜 된 것이다.</div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- 4. BONUS 1 (아코디언) -->
+  <div class="bonus-accordion" id="sect-bonus1" style="margin-top:3px;">
+    <button class="bonus-accordion-trigger" onclick="toggleBonus('sect-bonus1')" aria-expanded="false">
+      <div class="card-icon icon-bonus">🗺️</div>
+      <div class="bonus-trigger-text">
+        <div class="bonus-badge">⭐ BONUS 1</div>
+        <h2>미래 산업 연결 지도</h2>
+      </div>
+      <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </button>
+    <div class="accordion-body"><div class="bonus-body-inner">
+
+      <div class="bonus-connection">
+        <div class="bonus-connection-header"><span class="bonus-connection-num">01</span><p class="bonus-connection-title">취향 크로스오버 트렌드 → 퍼스널라이제이션 AI · 데이터 커머스</p></div>
+        <div class="bonus-row">
+          <div class="bonus-row-item"><span class="bonus-row-label">트렌드</span><span>말차코어처럼 음식 이미지가 뷰티·패션으로 번지는 '취향의 카테고리 전이' 현상</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">연결 산업</span><span>AI 큐레이션 커머스 · 퍼스널라이제이션 테크</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">왜 기회인가</span><span>소비자의 취향이 카테고리를 넘나들수록 구매 여정도 복잡해진다. "말차를 좋아하는 사람이 어떤 립을 살까"를 예측하는 AI 취향 그래프 수요가 폭발한다. 단일 카테고리 추천 알고리즘은 더 이상 충분하지 않다.</span></div>
+        </div>
+        <div class="bonus-callout"><strong>마케터 준비:</strong> 자사 구매 데이터에서 이종 카테고리 간 동시 구매 패턴을 분석하는 인프라를 지금 구축해야 한다. "우리 고객이 뭘 같이 사는가"가 다음 콜라보·번들 전략의 근거가 된다.</div>
+      </div>
+
+      <div class="bonus-connection">
+        <div class="bonus-connection-header"><span class="bonus-connection-num">02</span><p class="bonus-connection-title">운세·자기탐색 열풍 → 멘탈헬스테크 · 웰니스 앱</p></div>
+        <div class="bonus-row">
+          <div class="bonus-row-item"><span class="bonus-row-label">트렌드</span><span>2030이 사주·MBTI에서 '정서적 위안과 자기 이해'를 찾는 행동</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">연결 산업</span><span>멘탈헬스테크 · 웰니스 앱 · 마음챙김 플랫폼</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">왜 기회인가</span><span>운세 소비의 본질은 '불확실한 미래에 대한 통제감 확보'다. 이 욕망은 명상 앱, 감정 일기, AI 코칭 서비스와 정확히 같은 심리적 기반을 공유한다. F&amp;B가 운세 마케팅으로 진입한 시장을 헬스테크가 더 깊이 파고들 수 있다.</span></div>
+        </div>
+        <div class="bonus-callout"><strong>마케터 준비:</strong> 웰니스·멘탈헬스 브랜드라면 '운세' 언어를 직접 쓰지 않더라도, 불확실성 해소·자기 이해·일상 리추얼 키워드로 타깃 접점을 설계하는 콘텐츠 전략을 지금 준비할 타이밍이다.</div>
+      </div>
+
+      <div class="bonus-connection">
+        <div class="bonus-connection-header"><span class="bonus-connection-num">03</span><p class="bonus-connection-title">K뷰티 글로벌 인디화 → 글로컬 D2C 플랫폼 · 뷰티테크</p></div>
+        <div class="bonus-row">
+          <div class="bonus-row-item"><span class="bonus-row-label">트렌드</span><span>대기업이 아닌 인디 브랜드가 SNS와 글로벌 플랫폼을 통해 직접 유럽·미국 소비자와 연결되는 구조</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">연결 산업</span><span>글로벌 D2C 인프라 · 뷰티테크(AI 피부 분석, AR 메이크업) · 물류테크</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">왜 기회인가</span><span>인디 브랜드가 글로벌로 가려면 현지화 없이 SNS 콘텐츠만으로는 한계가 있다. AI 피부 분석+현지 피부톤 맞춤 추천, AR 가상 메이크업 등 뷰티테크가 글로벌 D2C의 전환율을 결정하는 핵심 도구가 된다.</span></div>
+        </div>
+        <div class="bonus-callout"><strong>마케터 준비:</strong> K뷰티 브랜드라면 글로벌 플랫폼(Qoo10, TikTok Shop, Amazon) 입점 전략과 함께 AI 피부 매칭 기술 파트너십을 지금 탐색해야 한다. 제품력만큼 '현지 소비자 경험 설계'가 전환을 결정한다.</div>
+      </div>
+
+    </div></div>
+  </div>
+
+  <!-- 5. BONUS 2 (아코디언) -->
+  <div class="bonus-accordion" id="sect-bonus2" style="margin-top:3px;">
+    <button class="bonus-accordion-trigger" onclick="toggleBonus('sect-bonus2')" aria-expanded="false">
+      <div class="card-icon icon-bonus">📈</div>
+      <div class="bonus-trigger-text">
+        <div class="bonus-badge">⭐ BONUS 2</div>
+        <h2>주식시장·경제 상황 연결 분석</h2>
+      </div>
+      <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </button>
+    <div class="accordion-body"><div class="bonus-body-inner">
+
+      <div class="econ-block">
+        <div class="bonus-connection-header"><span class="bonus-connection-num" style="color:var(--teal)">01</span><p class="bonus-connection-title">K뷰티 수출 호조 → 코스맥스·한국콜마 등 ODM 섹터</p></div>
+        <div class="econ-row"><span class="econ-label">경제 맥락</span><span>원/달러 환율 고공 유지 + 유럽·미국 소비 회복세가 K뷰티 수출 단가와 물량 동시 상승을 이끌고 있다.</span></div>
+        <div class="econ-row"><span class="econ-label">트렌드 연결</span><span>인디 브랜드의 글로벌 약진은 OEM·ODM 수주 증가로 직결 — 코스맥스는 브랜드 협업(LF)과 인디 육성(SSG닷컴)을 동시에 진행하며 수혜 구조를 구축 중이다.</span></div>
+        <div class="econ-row"><span class="econ-label">주식 흐름</span><span>화장품 ODM 섹터는 수출 호조 국면에서 수익성 개선 기대가 높아지는 구조. 브랜드보다 ODM이 환율 수혜를 직접적으로 받는 포지션이다.</span></div>
+        <div class="econ-callout"><strong>마케터 판단:</strong> K뷰티 브랜드라면 지금이 ODM 파트너와 단가 협상력이 유리한 시점은 아닐 수 있다. 반대로, ODM사가 인디 브랜드 육성에 적극적인 지금, 신규 브랜드 론칭 타이밍으로는 유리한 환경이다.</div>
+      </div>
+
+      <div class="econ-block">
+        <div class="bonus-connection-header"><span class="bonus-connection-num" style="color:var(--teal)">02</span><p class="bonus-connection-title">운세·리추얼 소비 확대 → 소비 양극화의 또 다른 단면</p></div>
+        <div class="econ-row"><span class="econ-label">경제 맥락</span><span>고물가·고금리 장기화로 중산층 가처분 소득이 줄면서 '큰 지출'은 줄이되 '작은 위안'에는 기꺼이 지갑을 여는 소비 패턴이 고착화되고 있다.</span></div>
+        <div class="econ-row"><span class="econ-label">트렌드 연결</span><span>운세 박람회 오픈런, 바나프레소 영수증 운세 — 모두 저단가 소비에 정서적 가치를 더한 구조다. '작은 사치(Small Indulgence)' 소비 트렌드의 전형적인 발현.</span></div>
+        <div class="econ-row"><span class="econ-label">주식 흐름</span><span>저가 카페, 편의점, 다이소 등 소액 반복 구매 채널이 경기 침체 국면에서도 방어적 강세를 보이는 이유와 동일한 맥락이다.</span></div>
+        <div class="econ-callout"><strong>마케터 판단:</strong> 중간 가격대 캠페인보다 초저가 진입점(체험 이벤트, 1,000~3,000원대 소액 구매 유도)과 프리미엄 라인 양극단에 예산을 집중하는 것이 현 경제 국면에서 ROI가 높다.</div>
+      </div>
+
+      <div class="econ-block">
+        <div class="bonus-connection-header"><span class="bonus-connection-num" style="color:var(--teal)">03</span><p class="bonus-connection-title">셀럽 시딩 전략 고도화 → 광고 효율 압박의 구조적 반영</p></div>
+        <div class="econ-row"><span class="econ-label">경제 맥락</span><span>광고비 단가 상승(Meta·Google CPM 지속 상승)으로 퍼포먼스 마케팅 효율이 구조적으로 낮아지고 있다. 브랜드들이 '비용 대비 신뢰도'가 높은 인플루언서·시딩으로 이동 중.</span></div>
+        <div class="econ-row"><span class="econ-label">트렌드 연결</span><span>크록스의 멀티 셀럽 시딩 전략은 단순 유행이 아니라 광고 효율 하락에 대응한 구조적 선택이다. 퍼포먼스 마케팅 예산을 줄이고 시딩·콘텐츠로 재배분하는 흐름이 지속될 것이다.</span></div>
+        <div class="econ-row"><span class="econ-label">주식 흐름</span><span>MCN, 인플루언서 마케팅 플랫폼, 시딩 대행사 관련 섹터가 광고 시장 재편의 수혜를 받는 구조. 반면 전통 광고 대행사 실적에는 압박 요인이다.</span></div>
+        <div class="econ-callout"><strong>마케터 판단:</strong> 내년 예산 기획 시 Meta·Google 퍼포먼스 비중을 줄이고, 마이크로 인플루언서 시딩과 채널 IP 구축에 재배분하는 시나리오를 이번 분기 안에 시뮬레이션해 둬야 한다.</div>
+      </div>
+
+    </div></div>
+  </div>
+
+  <footer class="page-footer" style="margin-top:60px;">
+    <span>Fashion · Beauty · Marketing Analysis Report · 2026.06.22</span>
+    <span>Claude Sonnet 4.6 by Anthropic</span>
+  </footer>
+
+</div>
+
+<script>
+  function toggle(id) {
+    const item = document.getElementById(id);
+    const body = item.querySelector('.accordion-body');
+    const trigger = item.querySelector('.accordion-trigger');
+    const isOpen = item.classList.contains('open');
+    if (isOpen) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      requestAnimationFrame(() => { requestAnimationFrame(() => { body.style.maxHeight = '0'; }); });
+      item.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    } else {
+      item.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      body.addEventListener('transitionend', function h() { body.style.maxHeight = 'none'; body.removeEventListener('transitionend', h); });
+    }
+  }
+
+  function toggleSection(id) {
+    const item = document.getElementById(id);
+    const body = item.querySelector('.accordion-body');
+    const trigger = item.querySelector('.section-accordion-trigger');
+    const isOpen = item.classList.contains('open');
+    if (isOpen) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      requestAnimationFrame(() => { requestAnimationFrame(() => { body.style.maxHeight = '0'; }); });
+      item.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    } else {
+      item.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      body.addEventListener('transitionend', function h() { body.style.maxHeight = 'none'; body.removeEventListener('transitionend', h); });
+    }
+  }
+
+  function toggleBonus(id) {
+    const item = document.getElementById(id);
+    const body = item.querySelector('.accordion-body');
+    const trigger = item.querySelector('.bonus-accordion-trigger');
+    const isOpen = item.classList.contains('open');
+    if (isOpen) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      requestAnimationFrame(() => { requestAnimationFrame(() => { body.style.maxHeight = '0'; }); });
+      item.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    } else {
+      item.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      body.addEventListener('transitionend', function h() { body.style.maxHeight = 'none'; body.removeEventListener('transitionend', h); });
+    }
+  }
+</script>
+</body>
+</html>
