@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI·테크 업계 분석 리포트 — 2026.06.23</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F5F3EE; --surface: #FDFCF9; --surface2: #F0EDE6;
+    --text-primary: #1A1A18; --text-secondary: #4A4A44; --text-muted: #9A9A90;
+    --accent: #1A56C4; --accent-dim: #E6EEFB;
+    --border: #DDD9D0; --border-strong: #C8C4BC;
+    --teal: #0A7A64; --teal-dim: #E0F5F0;
+    --purple: #5B3FA8; --purple-dim: #EEEAFB;
+    --amber: #96580A; --amber-dim: #FDF3E0;
+    --coral: #B83030; --coral-dim: #FBEBEB;
+    --green: #1E7A3A; --green-dim: #E6F7EC;
+    --bonus: #6B3FA0; --bonus-dim: #F0EAFF;
+  }
+  body { background:var(--bg); color:var(--text-primary); font-family:'Noto Sans KR',sans-serif; font-weight:300; line-height:1.7; min-height:100vh; padding:56px 24px 96px; }
+  .page-wrapper { max-width:780px; margin:0 auto; }
+  .page-header { margin-bottom:60px; padding-bottom:36px; border-bottom:1px solid var(--border); }
+  .report-label { font-size:10px; font-weight:700; letter-spacing:0.2em; color:var(--accent); text-transform:uppercase; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .report-label::before { content:''; display:inline-block; width:6px; height:6px; background:var(--accent); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+  .page-header h1 { font-family:'Noto Serif KR',serif; font-size:34px; font-weight:700; line-height:1.35; color:var(--text-primary); margin-bottom:16px; }
+  .page-header h1 span { color:var(--accent); }
+  .page-header p { font-size:14px; color:var(--text-secondary); line-height:1.85; max-width:640px; }
+  .header-meta { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+  .header-meta span { font-size:12px; color:var(--text-muted); display:flex; align-items:center; gap:6px; padding:5px 12px; border:1px solid var(--border); border-radius:2px; background:var(--surface); }
+  .section-label { font-size:10px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+
+  /* 종합 분석 */
+  .analysis-card { background:var(--surface); border:1px solid var(--border); border-radius:3px; overflow:hidden; margin-bottom:56px; }
+  .analysis-card-header { padding:22px 28px; border-bottom:1px solid var(--border); background:var(--surface2); display:flex; align-items:flex-start; gap:14px; }
+  .card-icon { flex-shrink:0; width:36px; height:36px; border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+  .icon-blue { background:var(--accent-dim); } .icon-amber { background:var(--amber-dim); } .icon-bonus { background:var(--bonus-dim); }
+  .analysis-card-header h2 { font-family:'Noto Serif KR',serif; font-size:16px; font-weight:600; color:var(--text-primary); line-height:1.4; margin-bottom:4px; }
+  .analysis-card-header .sub { font-size:12px; color:var(--text-muted); }
+  .analysis-card-body { padding:28px; }
+  .trend-lead { font-family:'Noto Serif KR',serif; font-size:18px; font-weight:600; color:var(--accent); line-height:1.65; margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+  .trend-para { font-size:13.5px; color:var(--text-secondary); line-height:1.95; margin-bottom:18px; }
+  .structural-list { list-style:none; margin:16px 0 0; }
+  .structural-list li { display:flex; gap:12px; font-size:13.5px; color:var(--text-secondary); line-height:1.75; padding:10px 0; border-bottom:1px solid var(--border); }
+  .structural-list li:last-child { border-bottom:none; }
+  .li-num { flex-shrink:0; font-weight:700; color:var(--accent); font-size:12px; padding-top:2px; font-family:'Noto Serif KR',serif; min-width:18px; }
+
+  /* 공통 아코디언 */
+  .accordion-group { display:flex; flex-direction:column; gap:3px; margin-bottom:56px; }
+  .accordion-item { background:var(--surface); border:1px solid var(--border); border-radius:3px; overflow:hidden; transition:border-color 0.2s; }
+  .accordion-item.open { border-color:var(--accent); }
+  .accordion-trigger { width:100%; background:none; border:none; cursor:pointer; padding:20px 24px; display:flex; align-items:center; gap:16px; text-align:left; transition:background 0.15s; }
+  .accordion-trigger:hover { background:var(--accent-dim); }
+  .accordion-item.open .accordion-trigger { background:var(--accent-dim); }
+  .article-num-badge { flex-shrink:0; width:30px; height:30px; border-radius:50%; background:var(--surface2); border:1px solid var(--border-strong); color:var(--text-secondary); font-size:12px; font-weight:500; display:flex; align-items:center; justify-content:center; transition:all 0.2s; font-family:'Noto Serif KR',serif; }
+  .accordion-item.open .article-num-badge { background:var(--accent-dim); border-color:var(--accent); color:var(--accent); }
+  .trigger-text { flex:1; }
+  .trigger-category { font-size:10px; font-weight:700; color:var(--text-muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:5px; }
+  .trigger-title { font-size:15px; font-weight:500; color:var(--text-primary); line-height:1.45; transition:color 0.15s; }
+  .accordion-item.open .trigger-title { color:var(--accent); }
+  .accordion-arrow { flex-shrink:0; color:var(--text-muted); transition:transform 0.35s cubic-bezier(0.4,0,0.2,1), color 0.2s; }
+  .accordion-item.open .accordion-arrow { transform:rotate(180deg); color:var(--accent); }
+  .accordion-body { max-height:0; overflow:hidden; transition:max-height 0.42s cubic-bezier(0.4,0,0.2,1); }
+  .accordion-body-inner { padding:0 24px 28px; border-top:1px solid var(--border); }
+  .summary-block { margin-top:22px; margin-bottom:24px; }
+  .block-label { font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+  .summary-text { font-size:13.5px; color:var(--text-secondary); line-height:1.9; }
+  .insights-block { margin-bottom:20px; }
+  .insight-item { display:flex; gap:14px; padding:13px 0; border-bottom:1px solid var(--border); }
+  .insight-item:last-child { border-bottom:none; }
+  .insight-num { flex-shrink:0; font-size:11px; font-weight:700; color:var(--accent); font-family:'Noto Serif KR',serif; padding-top:2px; min-width:20px; }
+  .insight-text { font-size:13.5px; color:var(--text-primary); line-height:1.75; }
+  .tag-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:18px; }
+  .tag { font-size:11px; font-weight:500; padding:4px 11px; border-radius:2px; letter-spacing:0.04em; }
+  .tag-blue   { background:var(--accent-dim); color:var(--accent);  border:1px solid rgba(26,86,196,0.2); }
+  .tag-teal   { background:var(--teal-dim);   color:var(--teal);   border:1px solid rgba(10,122,100,0.2); }
+  .tag-purple { background:var(--purple-dim); color:var(--purple); border:1px solid rgba(91,63,168,0.2); }
+  .tag-amber  { background:var(--amber-dim);  color:var(--amber);  border:1px solid rgba(150,88,10,0.2); }
+  .tag-coral  { background:var(--coral-dim);  color:var(--coral);  border:1px solid rgba(184,48,48,0.2); }
+  .tag-green  { background:var(--green-dim);  color:var(--green);  border:1px solid rgba(30,122,58,0.2); }
+
+  /* 마케팅 시사점 아코디언 */
+  .section-accordion { background:var(--surface); border:1px solid var(--border); border-radius:3px; overflow:hidden; transition:border-color 0.2s; margin-bottom:3px; }
+  .section-accordion.open { border-color:var(--amber); }
+  .section-accordion-trigger { width:100%; background:var(--surface2); border:none; cursor:pointer; padding:22px 28px; display:flex; align-items:center; gap:14px; text-align:left; transition:background 0.15s; }
+  .section-accordion.open .section-accordion-trigger { background:var(--amber-dim); }
+  .section-trigger-text { flex:1; }
+  .section-trigger-text h2 { font-family:'Noto Serif KR',serif; font-size:16px; font-weight:600; color:var(--text-primary); line-height:1.4; margin-bottom:4px; transition:color 0.15s; }
+  .section-accordion.open .section-trigger-text h2 { color:var(--amber); }
+  .section-trigger-text .sub { font-size:12px; color:var(--text-muted); }
+  .section-accordion .accordion-arrow { color:var(--text-muted); transition:transform 0.35s cubic-bezier(0.4,0,0.2,1), color 0.2s; }
+  .section-accordion.open .accordion-arrow { transform:rotate(180deg); color:var(--amber); }
+  .mkt-point { margin-bottom:28px; padding-bottom:28px; border-bottom:1px solid var(--border); }
+  .mkt-point:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .mkt-point-header { display:flex; align-items:baseline; gap:10px; margin-bottom:10px; }
+  .mkt-point-num { font-size:11px; font-weight:700; color:var(--amber); font-family:'Noto Serif KR',serif; flex-shrink:0; }
+  .mkt-point-title { font-size:15px; font-weight:500; color:var(--text-primary); line-height:1.4; }
+  .mkt-point-body { font-size:13.5px; color:var(--text-secondary); line-height:1.9; padding-left:22px; }
+  .mkt-callout { margin-top:12px; padding:12px 16px; background:var(--amber-dim); border-left:2px solid var(--amber); border-radius:0 2px 2px 0; font-size:12.5px; color:var(--amber); line-height:1.75; }
+  .mkt-callout strong { font-weight:700; }
+
+  /* BONUS 아코디언 */
+  .bonus-accordion { background:var(--surface); border:1px solid var(--border); border-radius:3px; overflow:hidden; transition:border-color 0.2s; margin-bottom:3px; }
+  .bonus-accordion.open { border-color:var(--bonus); }
+  .bonus-accordion-trigger { width:100%; background:var(--surface2); border:none; cursor:pointer; padding:22px 28px; display:flex; align-items:center; gap:14px; text-align:left; transition:background 0.15s; }
+  .bonus-accordion.open .bonus-accordion-trigger { background:var(--bonus-dim); }
+  .bonus-trigger-text { flex:1; }
+  .bonus-badge { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--bonus); background:var(--bonus-dim); border:1px solid rgba(107,63,160,0.25); border-radius:2px; padding:3px 8px; margin-bottom:6px; }
+  .bonus-trigger-text h2 { font-family:'Noto Serif KR',serif; font-size:16px; font-weight:600; color:var(--text-primary); line-height:1.4; transition:color 0.15s; }
+  .bonus-accordion.open .bonus-trigger-text h2 { color:var(--bonus); }
+  .bonus-accordion .accordion-arrow { color:var(--text-muted); transition:transform 0.35s cubic-bezier(0.4,0,0.2,1), color 0.2s; }
+  .bonus-accordion.open .accordion-arrow { transform:rotate(180deg); color:var(--bonus); }
+  .bonus-body-inner { padding:28px; border-top:1px solid var(--border); }
+  .bonus-connection { margin-bottom:28px; padding-bottom:28px; border-bottom:1px solid var(--border); }
+  .bonus-connection:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .bonus-connection-header { display:flex; align-items:baseline; gap:10px; margin-bottom:12px; }
+  .bonus-connection-num { font-size:11px; font-weight:700; color:var(--bonus); font-family:'Noto Serif KR',serif; flex-shrink:0; }
+  .bonus-connection-title { font-size:15px; font-weight:500; color:var(--text-primary); line-height:1.4; }
+  .bonus-row { display:flex; flex-direction:column; gap:8px; padding-left:22px; margin-bottom:10px; }
+  .bonus-row-item { font-size:13px; color:var(--text-secondary); line-height:1.75; display:flex; gap:8px; }
+  .bonus-row-label { flex-shrink:0; font-weight:700; font-size:11px; color:var(--bonus); padding-top:2px; min-width:72px; }
+  .bonus-callout { margin-top:10px; padding:12px 16px; background:var(--bonus-dim); border-left:2px solid var(--bonus); border-radius:0 2px 2px 0; font-size:12.5px; color:var(--bonus); line-height:1.75; }
+  .bonus-callout strong { font-weight:700; }
+  .econ-block { margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+  .econ-block:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .econ-row { display:flex; gap:8px; font-size:13px; color:var(--text-secondary); line-height:1.75; margin-bottom:8px; }
+  .econ-label { flex-shrink:0; font-weight:700; font-size:11px; color:var(--teal); min-width:72px; padding-top:2px; }
+  .econ-callout { margin-top:10px; padding:12px 16px; background:var(--teal-dim); border-left:2px solid var(--teal); border-radius:0 2px 2px 0; font-size:12.5px; color:var(--teal); line-height:1.75; }
+  .econ-callout strong { font-weight:700; }
+  .page-footer { margin-top:60px; padding-top:24px; border-top:1px solid var(--border); font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <header class="page-header">
+    <p class="report-label">Industry Report · AI / Tech / Platform</p>
+    <h1>AI가 <span>검색·광고·직원</span>을<br>통째로 집어삼키는 날</h1>
+    <p>네이버 AI 광고 수익화, SKT AI 사번 부여, 삼성 UFS 5.0, 글로벌 VC 동북아 러시까지 — 5개 기사로 읽는 AI 인프라·플랫폼·조직 혁신의 분기점</p>
+    <div class="header-meta">
+      <span>📰 기사 5건 분석</span>
+      <span>📅 2026. 06. 23</span>
+      <span>🏷 AI · 플랫폼 · 테크 · 투자</span>
+    </div>
+  </header>
+
+  <!-- 1. 종합 분석 -->
+  <p class="section-label">종합 분석</p>
+  <div class="analysis-card">
+    <div class="analysis-card-header">
+      <div class="card-icon icon-blue">🔍</div>
+      <div>
+        <h2>AI 인프라의 수익화가 시작됐다 — 통합 트렌드 분석</h2>
+        <p class="sub">5개 기사를 관통하는 구조적 맥락</p>
+      </div>
+    </div>
+    <div class="analysis-card-body">
+      <p class="trend-lead">"AI는 더 이상 실험이 아니다.<br>광고를 팔고, 직원을 대체하고, 하드웨어를 재정의하며<br>지금 이 순간 돈을 버는 산업이 됐다."</p>
+      <p class="trend-para">오늘 5개 기사는 서로 다른 레이어에서 동일한 방향을 가리킨다. 플랫폼은 AI로 광고 수익을 뽑아내기 시작했고(네이버), 기업은 AI에 사번을 주며 조직을 재설계하고 있으며(SKT), 하드웨어는 온디바이스 AI를 위해 진화하고(삼성), 글로벌 자본은 그 인프라를 쥔 동북아로 몰려들고 있다(a16z 서울 상륙). 개별 뉴스가 아니다. AI 경제의 수익화 원년이 열리는 구조적 전환점이다.</p>
+      <p class="trend-para">이 흐름의 구조적 동인 세 가지:</p>
+      <ul class="structural-list">
+        <li><span class="li-num">①</span><span>AI 수익화의 현실화 — "AI로 언젠가 돈 번다"가 아니라 7월 21일부터 네이버 AI 브리핑에 광고가 붙는다. SKT는 AI 에이전트에 사번을 부여해 인건비 구조를 바꾼다. 투자에서 수익으로 무게중심이 이동하는 원년이다.</span></li>
+        <li><span class="li-num">②</span><span>하드웨어가 AI 경쟁의 새 전선 — 삼성 UFS 5.0은 "클라우드 없이도 기기에서 AI를 돌릴 수 있다"는 온디바이스 AI 시대의 인프라 선언이다. AI 모델 경쟁이 서버에서 손바닥 위로 이동한다.</span></li>
+        <li><span class="li-num">③</span><span>동북아가 AI 공급망의 심장 — a16z가 서울·도쿄에 사무소를 여는 것은 단순 투자 확대가 아니다. HBM·파운드리·소재·장비를 한국·대만·일본이 장악하고 있는 구조에서, 글로벌 AI 패권은 결국 동북아 공급망 위에서 작동한다.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. 기사별 아코디언 -->
+  <p class="section-label">기사별 요약 및 인사이트</p>
+  <div class="accordion-group">
+
+    <!-- 기사 1 -->
+    <div class="accordion-item" id="item-1">
+      <button class="accordion-trigger" onclick="toggle('item-1')" aria-expanded="false">
+        <div class="article-num-badge">1</div>
+        <div class="trigger-text">
+          <p class="trigger-category">플랫폼 · AI 광고 수익화</p>
+          <p class="trigger-title">네이버 AI 브리핑에 광고 붙는다 — 7월 21일, 검색광고의 판이 바뀐다</p>
+        </div>
+        <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="summary-block"><p class="block-label">요약</p><p class="summary-text">네이버가 7월 21일부터 AI 브리핑 지면에 검색광고를 노출한다. 광고 에이전트가 검색어와 브리핑 콘텐츠를 분석해 'ADVoost' 광고 목록 중 최적 광고를 자동 선정, 텍스트 형식으로 상품 링크와 함께 노출한다. 1분기 광고 매출은 전년 대비 9.3% 증가한 1조 3945억 원이었으며, AI의 광고 매출 기여도는 50% 이상이었다. AI 브리핑 쿼리 커버리지는 현재 27%, 연내 40%까지 확장 목표다.</p></div>
+        <div class="insights-block"><p class="block-label">핵심 인사이트 3</p>
+          <div class="insight-item"><span class="insight-num">01</span><p class="insight-text">검색광고의 패러다임이 '키워드 매칭'에서 '맥락 매칭'으로 전환된다. AI가 질문의 의도와 브리핑 내용을 함께 읽고 광고를 선정하는 것은, 소비자가 정보를 탐색하는 흐름 안에 광고가 자연스럽게 스며드는 방식이다. 광고주 입장에서는 도달 정밀도가 높아지고 클릭 의도도 높아질 가능성이 크다.</p></div>
+          <div class="insight-item"><span class="insight-num">02</span><p class="insight-text">광고 텍스트를 AI가 자동 작성하고 광고주는 수정 불가 — 이는 광고 제작 권한이 브랜드에서 플랫폼 AI로 넘어가는 신호탄이다. 브랜드 톤앤매너 통제력이 약화될 수 있어 광고주의 적응이 필요하다.</p></div>
+          <div class="insight-item"><span class="insight-num">03</span><p class="insight-text">AI 브리핑 MAU 3000만 × 쿼리 커버리지 27%(→40%) = 광고 노출 볼륨의 기하급수적 확대. 네이버가 AI를 수익 엔진으로 전환하는 속도가 시장 예상보다 빠르다.</p></div>
+        </div>
+        <div class="tag-row"><span class="tag tag-blue">AI 검색광고</span><span class="tag tag-amber">광고 수익화</span><span class="tag tag-teal">맥락 타기팅</span><span class="tag tag-purple">플랫폼 광고 혁신</span></div>
+      </div></div>
+    </div>
+
+    <!-- 기사 2 -->
+    <div class="accordion-item" id="item-2">
+      <button class="accordion-trigger" onclick="toggle('item-2')" aria-expanded="false">
+        <div class="article-num-badge">2</div>
+        <div class="trigger-text">
+          <p class="trigger-category">로보틱스 · AI 경량화</p>
+          <p class="trigger-title">네이버 '디바인' — 로봇 뇌를 하나로 합쳤다, 메모리 90% 줄고 속도 12배</p>
+        </div>
+        <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="summary-block"><p class="block-label">요약</p><p class="summary-text">네이버랩스 유럽이 로봇용 통합 AI 모델 '디바인(DIVINE)'을 공개했다. 기존에 따로 돌아가던 2D 이미지·3D 공간·사람 인식 등 여러 AI 인코더를 하나로 통합, 메모리 사용량을 90% 줄이고 처리 속도를 최대 12배 향상시켰다. '다중 교사 증류' 방식을 적용해 전문 모델들의 핵심 기능만 추출해 단일 모델에 압축했다. ECCV·CVPR 등 주요 학회에 채택됐다.</p></div>
+        <div class="insights-block"><p class="block-label">핵심 인사이트 3</p>
+          <div class="insight-item"><span class="insight-num">01</span><p class="insight-text">로봇 AI의 경쟁은 이제 '얼마나 똑똑한가'가 아닌 '얼마나 작고 저렴하게 돌아가는가'로 이동했다. 디바인은 소형 로봇에서도 고성능 AI를 구동 가능하게 만드는 기술 — AI 로봇 대중화의 임계점을 낮추는 인프라 혁신이다.</p></div>
+          <div class="insight-item"><span class="insight-num">02</span><p class="insight-text">네이버가 검색·광고 플랫폼을 넘어 로보틱스 AI 원천 기술까지 개발하고 있다는 것은 단순한 기술 다각화가 아니다. 피지컬 AI 시대 핵심 특허와 기술 자산을 축적하는 장기 포지셔닝이다.</p></div>
+          <div class="insight-item"><span class="insight-num">03</span><p class="insight-text">기존 로봇에 디바인 업데이트만으로 성능 향상이 가능한 구조 — 하드웨어를 바꾸지 않아도 소프트웨어로 로봇을 진화시킨다는 개념은 스마트폰 OS 업데이트 모델과 같다. 로봇의 수명 주기와 구독 경제 모델의 결합 가능성이 열린다.</p></div>
+        </div>
+        <div class="tag-row"><span class="tag tag-blue">로보틱스 AI</span><span class="tag tag-teal">AI 경량화</span><span class="tag tag-purple">피지컬 AI</span><span class="tag tag-green">네이버랩스</span></div>
+      </div></div>
+    </div>
+
+    <!-- 기사 3 -->
+    <div class="accordion-item" id="item-3">
+      <button class="accordion-trigger" onclick="toggle('item-3')" aria-expanded="false">
+        <div class="article-num-badge">3</div>
+        <div class="trigger-text">
+          <p class="trigger-category">글로벌 투자 · AI 공급망</p>
+          <p class="trigger-title">a16z 서울 상륙 — "제2의 리벨리온 찾겠다", 동북아에 150조 VC 몰린다</p>
+        </div>
+        <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="summary-block"><p class="block-label">요약</p><p class="summary-text">운용자산 150조 원의 세계 최대 VC 앤드리슨 호로위츠(a16z)가 도쿄에 이어 서울 사무소를 개소했다. 뉴마운틴캐피탈(AUM 90조원)도 서울 거점을 마련했고, PGIM은 한·일 데이터센터에 4.6조 원 투자를 결정했다. 글로벌 AI 투자액은 2025년 415조 원으로 역대 최대를 기록했다. 한국(HBM)·일본(소재·장비)·대만(파운드리)이 AI 공급망 핵심 3국으로 부상하면서 미국 VC의 동북아 러시가 가속되고 있다.</p></div>
+        <div class="insights-block"><p class="block-label">핵심 인사이트 3</p>
+          <div class="insight-item"><span class="insight-num">01</span><p class="insight-text">a16z 서울 사무소 개소는 단순 한국 투자 선언이 아니다. HBM·파운드리·소재·장비가 AI 경쟁의 병목이 됐다는 글로벌 자본의 공개 인정이다. 한국 AI 스타트업의 밸류에이션 상승과 투자 환경 개선으로 직결된다.</p></div>
+          <div class="insight-item"><span class="insight-num">02</span><p class="insight-text">'토큰당 비용'이 AI 기업 가치 평가 지표로 부상 — AI 모델을 얼마나 싸게 돌릴 수 있는 인프라를 가졌느냐가 투자 판단 기준이 된다는 것은, 하드웨어 효율 기업에 투자 프리미엄이 붙는다는 의미다.</p></div>
+          <div class="insight-item"><span class="insight-num">03</span><p class="insight-text">중국 배제 구조에서 한·일·대만 3국으로 투자가 집중되는 흐름은 미국 AI 산업의 지정학적 포지셔닝이기도 하다. 이 흐름은 단기 트렌드가 아니라 수년간 지속될 구조적 방향이다.</p></div>
+        </div>
+        <div class="tag-row"><span class="tag tag-blue">글로벌 VC</span><span class="tag tag-coral">AI 공급망</span><span class="tag tag-amber">동북아 투자</span><span class="tag tag-teal">AI 인프라</span></div>
+      </div></div>
+    </div>
+
+    <!-- 기사 4 -->
+    <div class="accordion-item" id="item-4">
+      <button class="accordion-trigger" onclick="toggle('item-4')" aria-expanded="false">
+        <div class="article-num-badge">4</div>
+        <div class="trigger-text">
+          <p class="trigger-category">반도체 · 온디바이스 AI</p>
+          <p class="trigger-title">삼성 UFS 5.0 — 속도 2배, 전력 40% 절감, 온디바이스 AI 시대 스토리지 전쟁 개막</p>
+        </div>
+        <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="summary-block"><p class="block-label">요약</p><p class="summary-text">삼성전자가 업계 최초로 UFS 5.0 개발을 완료했다. 9세대 V낸드 기반으로 순차 읽기 10.8GB/s, 쓰기 9.5GB/s — UFS 4.1 대비 약 2배 빠르고, 전력 효율은 40% 개선됐다. 패키지 크기도 16.7% 줄어 웨어러블·XR 기기 탑재가 용이해졌다. 4분기 양산 시작 예정이며, 삼성의 낸드 시장 점유율은 1분기 기준 31.6%로 2위 SK하이닉스(17.6%)와 격차를 벌리고 있다.</p></div>
+        <div class="insights-block"><p class="block-label">핵심 인사이트 3</p>
+          <div class="insight-item"><span class="insight-num">01</span><p class="insight-text">온디바이스 AI의 성패는 모델 성능만으로 결정되지 않는다. AI를 기기에서 돌리려면 빠르고 저전력인 스토리지가 필수 — UFS 5.0은 갤럭시·아이폰 다음 세대 플래그십의 AI 경험 차별화를 결정하는 숨은 변수다.</p></div>
+          <div class="insight-item"><span class="insight-num">02</span><p class="insight-text">XR 헤드셋·AI 웨어러블로 공급 확대 계획은 폼팩터 다변화 시대의 선점 전략이다. 스마트폰 외의 디바이스에서 AI를 돌리려면 작고 효율적인 스토리지가 핵심 — 삼성이 그 표준을 먼저 쓰겠다는 선언이다.</p></div>
+          <div class="insight-item"><span class="insight-num">03</span><p class="insight-text">낸드 점유율 31.6% — 삼성이 AI 모바일 인프라 공급망에서 구조적 우위를 갖고 있다는 의미다. HBM(SK하이닉스)과 낸드(삼성)가 한국이 AI 하드웨어 밸류체인의 두 축을 동시에 쥐는 구조를 강화한다.</p></div>
+        </div>
+        <div class="tag-row"><span class="tag tag-blue">온디바이스 AI</span><span class="tag tag-teal">삼성 반도체</span><span class="tag tag-green">낸드 스토리지</span><span class="tag tag-amber">XR·웨어러블</span></div>
+      </div></div>
+    </div>
+
+    <!-- 기사 5 -->
+    <div class="accordion-item" id="item-5">
+      <button class="accordion-trigger" onclick="toggle('item-5')" aria-expanded="false">
+        <div class="article-num-badge">5</div>
+        <div class="trigger-text">
+          <p class="trigger-category">기업 AI 전환 · 조직 혁신</p>
+          <p class="trigger-title">SKT AI 에이전트에 사번 부여 — '함께 일하는 동료'로 AI를 조직에 편입한다</p>
+        </div>
+        <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="summary-block"><p class="block-label">요약</p><p class="summary-text">SK텔레콤이 'AX 혁신 2.0'을 발표하며 AI 에이전트에 사번·소속·역할·보안 권한을 부여하고 실제 업무 주체로 편입했다. 비개발자도 AI 비서를 만들 수 있는 '에이닷 비즈 코워크' 베타가 사내 적용됐고, 해커톤 참가자 115명 중 절반이 비개발 조직이었다. 기존 관성 업무를 AI 기반으로 백지 설계하는 'AX 샌드박스'도 도입, 시범 운영에서 기획 시간 단축·의사결정 속도 향상 효과를 확인했다.</p></div>
+        <div class="insights-block"><p class="block-label">핵심 인사이트 3</p>
+          <div class="insight-item"><span class="insight-num">01</span><p class="insight-text">AI에 사번을 준다는 것은 조직 내 역할과 책임 체계에 AI를 공식 편입시킨다는 선언이다. '도구'가 아닌 '동료'로서의 AI — 이 전환이 완성되면 인력 계획, 성과 관리, 보안 거버넌스 모두가 재설계된다.</p></div>
+          <div class="insight-item"><span class="insight-num">02</span><p class="insight-text">비개발자가 AI를 만드는 해커톤 절반 참여율 — 기술의 민주화가 조직 내부에서 먼저 일어나고 있다. 마케터, 기획자, 영업직이 코딩 없이 AI 도구를 직접 만드는 시대가 SKT 안에서 이미 열렸다.</p></div>
+          <div class="insight-item"><span class="insight-num">03</span><p class="insight-text">AX 샌드박스의 핵심은 '기존 업무를 개선'이 아니라 '백지에서 재설계'다. 이 접근법은 기존 업무 프로세스를 개선하는 RPA·자동화와 근본적으로 다르다. 업무 재정의 자체가 AI 혁신의 핵심이라는 메시지다.</p></div>
+        </div>
+        <div class="tag-row"><span class="tag tag-blue">AI 에이전트</span><span class="tag tag-purple">조직 혁신</span><span class="tag tag-amber">AX 전환</span><span class="tag tag-coral">비개발자 AI</span></div>
+      </div></div>
+    </div>
+
+  </div>
+
+  <!-- 3. 마케팅 시사점 (아코디언) -->
+  <div class="section-accordion" id="sect-mkt">
+    <button class="section-accordion-trigger" onclick="toggleSection('sect-mkt')" aria-expanded="false">
+      <div class="card-icon icon-amber">📣</div>
+      <div class="section-trigger-text">
+        <h2>마케팅 시사점 — 20년차 본부장의 시각</h2>
+        <p class="sub">슬로건 말고, 내일 당장 쓸 수 있는 실무 언어로</p>
+      </div>
+      <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner" style="padding:28px;">
+
+      <div class="mkt-point">
+        <div class="mkt-point-header"><span class="mkt-point-num">01</span><p class="mkt-point-title">네이버 AI 브리핑 광고가 시작되는 7월, 지금 당장 키워드 전략을 다시 짜야 한다</p></div>
+        <p class="mkt-point-body">AI 브리핑 광고는 기존 검색광고 입찰 구조를 건드리지 않는다. 그러나 AI가 맥락을 읽어 광고를 선정하기 때문에, 상품 정보가 빈약하거나 광고주센터 정보가 부실한 브랜드는 AI 선정에서 밀릴 수 있다. 광고주가 텍스트를 직접 수정할 수 없다는 점도 중요하다. AI가 어떤 메시지를 생성할지 예측하려면 상품 정보와 USP(고유 판매 제안)를 최대한 명확하게 광고주센터에 입력해 두는 것이 선행 과제다. 쿼리 커버리지 40% 확장이 완료되면 AI 브리핑 광고는 네이버 검색광고 매출의 핵심 채널이 된다.</p>
+        <div class="mkt-callout"><strong>즉시 실행 과제:</strong> 7월 21일 전에 네이버 광고주센터의 상품 설명·카테고리·USP를 점검하라. AI가 자동 생성하는 광고 문구의 품질은 입력 정보의 품질과 직결된다. 브랜드 담당자가 지금 해야 할 가장 ROI 높은 일이다.</div>
+      </div>
+
+      <div class="mkt-point">
+        <div class="mkt-point-header"><span class="mkt-point-num">02</span><p class="mkt-point-title">AI가 광고 텍스트를 쓰는 시대, 브랜드 보이스 통제권을 어떻게 지킬 것인가</p></div>
+        <p class="mkt-point-body">네이버 AI 광고는 광고주가 텍스트를 수정할 수 없다. 이는 구글의 반응형 검색광고(RSA) 방식과 유사하지만, 맥락 연동 수준이 훨씬 높다. 브랜드가 "프리미엄"을 강조하고 싶어도 AI가 "저렴하다"는 맥락으로 광고를 붙일 수 있는 상황이 발생할 수 있다. 지금부터 브랜드 포지셔닝과 금지 맥락(예: 가격 비교, 경쟁사 연관어)을 광고 설정에 명확히 반영하는 네거티브 전략이 필수다. AI 광고 시대에 브랜드 보이스는 '콘텐츠'가 아니라 '설정값'으로 관리되는 시대가 온다.</p>
+        <div class="mkt-callout"><strong>체크포인트:</strong> 자사 브랜드의 절대 금지 연관어, 포지셔닝 핵심 키워드를 문서화해 두었는가? 없다면 AI 광고 확산 이전에 브랜드 가이드라인 중 '디지털 광고 맥락 기준'을 별도로 만들어야 한다.</div>
+      </div>
+
+      <div class="mkt-point">
+        <div class="mkt-point-header"><span class="mkt-point-num">03</span><p class="mkt-point-title">비개발자도 AI 도구를 만드는 시대 — 마케터가 지금 준비해야 할 역량은 '프롬프트 설계'가 아니라 '업무 재정의'다</p></div>
+        <p class="mkt-point-body">SKT의 사례는 마케터에게 직접적인 시사점을 던진다. 비개발자가 AI 비서를 만들고, 해커톤에 마케터가 절반을 차지한다는 것은 마케터가 AI 도구의 소비자가 아니라 설계자가 되어야 한다는 신호다. 중요한 것은 ChatGPT 사용법이 아니다. "내 업무 중 AI가 대체할 수 있는 것은 무엇인가, 나는 무엇을 해야 하는가"를 먼저 설계하는 능력이다. AX 샌드박스처럼 백지에서 자기 업무를 재정의하는 훈련을 지금 시작해야 한다.</p>
+        <div class="mkt-callout"><strong>실무 적용:</strong> 자신의 주간 업무 목록을 꺼내라. 각 항목 옆에 "AI로 대체 가능 / AI와 협업 가능 / 나만 할 수 있음"을 표시해보라. "나만 할 수 있음"이 30% 미만이라면, 지금 당장 자신의 역할을 재설계해야 한다.</div>
+      </div>
+
+      <div class="mkt-point">
+        <div class="mkt-point-header"><span class="mkt-point-num">04</span><p class="mkt-point-title">동북아 AI 투자 러시가 한국 스타트업 생태계에 미칠 영향 — 마케터도 알아야 할 밸류에이션 변화</p></div>
+        <p class="mkt-point-body">a16z가 서울에 사무소를 열었다는 것은 한국 AI·테크 스타트업의 기업 가치가 글로벌 기준으로 재평가받는 시작점이다. 브랜드 파트너십, 스폰서십, B2B 마케팅을 담당하는 마케터라면 협업 대상 스타트업의 밸류에이션 변화에 민감해야 한다. AI 공급망에 위치한 스타트업들은 몸값이 빠르게 올라간다. 지금이 저비용으로 콜라보·시딩·파트너십을 체결할 수 있는 마지막 타이밍일 수 있다.</p>
+        <div class="mkt-callout"><strong>판단 기준:</strong> 협업을 검토 중인 AI·테크 스타트업이 있다면, 글로벌 VC 투자 이력과 동북아 공급망 연관성을 함께 체크하라. 밸류에이션이 올라가기 전에 관계를 선점하는 것이 마케팅 예산 효율을 결정한다.</div>
+      </div>
+
+    </div></div>
+  </div>
+
+  <!-- 4. BONUS 1 -->
+  <div class="bonus-accordion" id="sect-bonus1" style="margin-top:3px;">
+    <button class="bonus-accordion-trigger" onclick="toggleBonus('sect-bonus1')" aria-expanded="false">
+      <div class="card-icon icon-bonus">🗺️</div>
+      <div class="bonus-trigger-text">
+        <div class="bonus-badge">⭐ BONUS 1</div>
+        <h2>미래 산업 연결 지도</h2>
+      </div>
+      <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </button>
+    <div class="accordion-body"><div class="bonus-body-inner">
+
+      <div class="bonus-connection">
+        <div class="bonus-connection-header"><span class="bonus-connection-num">01</span><p class="bonus-connection-title">AI 검색광고 맥락화 → 애드테크 혁신 · 개인화 마케팅 플랫폼</p></div>
+        <div class="bonus-row">
+          <div class="bonus-row-item"><span class="bonus-row-label">트렌드</span><span>네이버 AI 브리핑이 검색 질문의 맥락을 읽어 광고를 자동 선정·생성하는 구조</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">연결 산업</span><span>컨텍스트 애드테크 · 의도 기반 광고 플랫폼 · AI 카피라이팅 솔루션</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">왜 기회인가</span><span>키워드 매칭 시대의 광고 대행사 모델은 구조적으로 약해진다. AI가 맥락을 읽고 광고를 생성하면, 광고 소재 제작과 매체 최적화의 역할이 재편된다. 반면 "어떤 맥락에서 우리 브랜드가 노출돼야 하는가"를 전략적으로 설계하는 역할은 더 중요해진다.</span></div>
+        </div>
+        <div class="bonus-callout"><strong>마케터 준비:</strong> 광고 소재 제작 역량보다 '맥락 전략 설계' 역량을 키워야 한다. 어떤 검색 의도와 브리핑 맥락에서 우리 브랜드가 연결되어야 하는지를 정의하는 것이 다음 세대 광고 기획의 핵심 역량이다.</div>
+      </div>
+
+      <div class="bonus-connection">
+        <div class="bonus-connection-header"><span class="bonus-connection-num">02</span><p class="bonus-connection-title">AI 에이전트의 조직 편입 → HR테크 · 에이전트 거버넌스 플랫폼</p></div>
+        <div class="bonus-row">
+          <div class="bonus-row-item"><span class="bonus-row-label">트렌드</span><span>SKT처럼 AI 에이전트에 사번·보안 권한·역할을 부여하고 조직 내 업무 주체로 관리하는 움직임</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">연결 산업</span><span>HR테크 · AI 에이전트 거버넌스 플랫폼 · 조직 설계 컨설팅 · 보안 접근 제어 솔루션</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">왜 기회인가</span><span>사람과 AI가 함께 일하는 조직에서는 기존 HR 시스템, 보안 정책, 성과 관리 체계가 모두 재설계돼야 한다. "AI 에이전트의 입사·퇴사·권한 관리"를 지원하는 플랫폼은 아직 표준이 없는 신시장이다.</span></div>
+        </div>
+        <div class="bonus-callout"><strong>마케터 준비:</strong> B2B SaaS·HR테크 분야 마케터라면 "AI 에이전트 거버넌스"를 다음 타겟 키워드로 선점해야 한다. 기업의 AX 전환 수요가 본격화되는 지금, 이 영역의 콘텐츠 마케팅은 선점 효과가 크다.</div>
+      </div>
+
+      <div class="bonus-connection">
+        <div class="bonus-connection-header"><span class="bonus-connection-num">03</span><p class="bonus-connection-title">온디바이스 AI 하드웨어 고도화 → XR·스마트 웨어러블 시장 개화</p></div>
+        <div class="bonus-row">
+          <div class="bonus-row-item"><span class="bonus-row-label">트렌드</span><span>삼성 UFS 5.0처럼 소형·저전력 고성능 스토리지가 웨어러블·XR 기기 AI 탑재를 현실화하는 흐름</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">연결 산업</span><span>XR(확장현실) 헤드셋 · AI 스마트글래스 · 웨어러블 헬스케어 · 공간 컴퓨팅</span></div>
+          <div class="bonus-row-item"><span class="bonus-row-label">왜 기회인가</span><span>스마트폰 이후의 폼팩터 경쟁이 XR·웨어러블로 이동한다. 온디바이스 AI가 가능해지면 클라우드 없이도 실시간 번역, 헬스 모니터링, AR 오버레이가 동작한다. 스마트폰 앱 시장처럼 XR·웨어러블 플랫폼 위의 서비스·콘텐츠·광고 시장이 열린다.</span></div>
+        </div>
+        <div class="bonus-callout"><strong>마케터 준비:</strong> 2~3년 후 XR·AI 웨어러블이 대중화되면 광고·콘텐츠의 포맷이 완전히 달라진다. 지금부터 공간형 콘텐츠, AR 경험 마케팅의 레퍼런스를 쌓는 브랜드가 그 시장에서 선점 우위를 갖는다.</div>
+      </div>
+
+    </div></div>
+  </div>
+
+  <!-- 5. BONUS 2 -->
+  <div class="bonus-accordion" id="sect-bonus2" style="margin-top:3px;">
+    <button class="bonus-accordion-trigger" onclick="toggleBonus('sect-bonus2')" aria-expanded="false">
+      <div class="card-icon icon-bonus">📈</div>
+      <div class="bonus-trigger-text">
+        <div class="bonus-badge">⭐ BONUS 2</div>
+        <h2>주식시장·경제 상황 연결 분석</h2>
+      </div>
+      <div class="accordion-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </button>
+    <div class="accordion-body"><div class="bonus-body-inner">
+
+      <div class="econ-block">
+        <div class="bonus-connection-header"><span class="bonus-connection-num" style="color:var(--teal)">01</span><p class="bonus-connection-title">네이버 AI 광고 수익화 → 플랫폼 밸류에이션 재평가 신호</p></div>
+        <div class="econ-row"><span class="econ-label">경제 맥락</span><span>고금리 이후 성장주 재평가 국면에서, AI 수익화 가시성이 확인된 플랫폼 기업에 프리미엄 멀티플이 부여되는 흐름이 글로벌 공통이다.</span></div>
+        <div class="econ-row"><span class="econ-label">트렌드 연결</span><span>네이버의 AI 광고 수익화 선언 + 1분기 광고 매출 9.3% 성장 + AI 기여도 50% = 수익 모델이 증명된 플랫폼 AI 기업으로의 재평가 근거가 갖춰졌다.</span></div>
+        <div class="econ-row"><span class="econ-label">주식 흐름</span><span>국내 플랫폼 섹터(네이버·카카오)는 AI 수익화 속도에 따라 밸류에이션 디커플링이 진행될 가능성이 높다. 광고 매출 성장이 확인된 네이버와 수익화 지연 기업 간의 격차가 벌어지는 구조다.</span></div>
+        <div class="econ-callout"><strong>마케터 판단:</strong> 네이버 광고 예산 비중이 낮다면, AI 브리핑 광고 초기 노출 경쟁이 낮은 지금이 진입 적기다. 새 광고 상품 초기엔 CPM·CPC가 낮고 노출 경쟁이 덜하다는 광고 시장의 일반 원칙을 활용하라.</div>
+      </div>
+
+      <div class="econ-block">
+        <div class="bonus-connection-header"><span class="bonus-connection-num" style="color:var(--teal)">02</span><p class="bonus-connection-title">a16z 동북아 러시 → 한국 AI 스타트업 밸류에이션 상승 사이클 진입</p></div>
+        <div class="econ-row"><span class="econ-label">경제 맥락</span><span>글로벌 AI 투자액 415조 원(2025년 역대 최대)이 동북아로 집중되는 구조에서, 한국 AI 스타트업은 글로벌 VC의 직접 접근성이 높아지며 밸류에이션 상승 사이클에 진입했다.</span></div>
+        <div class="econ-row"><span class="econ-label">트렌드 연결</span><span>리벨리온(AI 반도체), 네이버 클라우드 등 한국 AI 인프라 기업의 몸값이 글로벌 기준으로 재산정되기 시작한다. 'HBM = 삼성·SK' 구조처럼 소프트웨어·시스템 레이어에서도 한국 기업 프리미엄이 형성될 수 있다.</span></div>
+        <div class="econ-row"><span class="econ-label">주식 흐름</span><span>코스피 AI 섹터 전반의 리레이팅 가능성이 있다. 특히 글로벌 VC가 '토큰당 비용'을 기준으로 투자 판단을 내리는 만큼, HBM·파운드리 관련 한국 기업 주가는 AI 인프라 투자 사이클의 직접 수혜를 받는 구조다.</span></div>
+        <div class="econ-callout"><strong>마케터 판단:</strong> 어디까지나 마케팅 전략 참고용 — AI 스타트업과의 콜라보·파트너십 예산을 검토한다면, 글로벌 VC 투자가 집중되기 이전에 계약 구조를 확정하는 것이 비용 효율 측면에서 유리하다.</div>
+      </div>
+
+      <div class="econ-block">
+        <div class="bonus-connection-header"><span class="bonus-connection-num" style="color:var(--teal)">03</span><p class="bonus-connection-title">AX 기업 전환 가속 → 생산성 갭이 마케팅 예산 배분을 바꾼다</p></div>
+        <div class="econ-row"><span class="econ-label">경제 맥락</span><span>저성장·고비용 구조에서 기업들이 인건비 절감과 생산성 향상을 동시에 추구하면서 AX(AI 전환) 투자가 IT 예산에서 최우선 순위를 차지하고 있다.</span></div>
+        <div class="econ-row"><span class="econ-label">트렌드 연결</span><span>SKT처럼 AI 에이전트가 반복 업무를 대체하면, 줄어든 인건비 일부가 마케팅·브랜딩 투자로 재배분될 가능성이 있다. 반면 AX에 예산을 쏟는 기업은 단기적으로 마케팅 예산 압박을 받을 수도 있다.</span></div>
+        <div class="econ-row"><span class="econ-label">주식 흐름</span><span>AX 솔루션 기업(클라우드, SaaS, AI 에이전트 플랫폼)이 기업 IT 지출 증가의 수혜를 받는 구조. 반면 전통적인 아웃소싱·파견 인력 기반 기업은 구조적 압박을 받을 가능성이 높다.</span></div>
+        <div class="econ-callout"><strong>마케터 판단:</strong> B2B 마케터라면 고객사의 AX 전환 단계를 파악하라. AX 초기 기업은 솔루션 도입에 예산이 집중되어 마케팅 예산이 줄어들 수 있고, AX가 안착된 기업은 생산성 향상분을 성장 투자로 돌리기 시작한다. 영업·마케팅 접근 방식이 달라져야 한다.</div>
+      </div>
+
+    </div></div>
+  </div>
+
+  <footer class="page-footer" style="margin-top:60px;">
+    <span>AI · Tech · Platform Analysis Report · 2026.06.23</span>
+    <span>Claude Sonnet 4.6 by Anthropic</span>
+  </footer>
+
+</div>
+
+<script>
+  function toggle(id) {
+    const item = document.getElementById(id);
+    const body = item.querySelector('.accordion-body');
+    const trigger = item.querySelector('.accordion-trigger');
+    const isOpen = item.classList.contains('open');
+    if (isOpen) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      requestAnimationFrame(() => { requestAnimationFrame(() => { body.style.maxHeight = '0'; }); });
+      item.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    } else {
+      item.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      body.addEventListener('transitionend', function h() { body.style.maxHeight = 'none'; body.removeEventListener('transitionend', h); });
+    }
+  }
+  function toggleSection(id) {
+    const item = document.getElementById(id);
+    const body = item.querySelector('.accordion-body');
+    const trigger = item.querySelector('.section-accordion-trigger');
+    const isOpen = item.classList.contains('open');
+    if (isOpen) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      requestAnimationFrame(() => { requestAnimationFrame(() => { body.style.maxHeight = '0'; }); });
+      item.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    } else {
+      item.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      body.addEventListener('transitionend', function h() { body.style.maxHeight = 'none'; body.removeEventListener('transitionend', h); });
+    }
+  }
+  function toggleBonus(id) {
+    const item = document.getElementById(id);
+    const body = item.querySelector('.accordion-body');
+    const trigger = item.querySelector('.bonus-accordion-trigger');
+    const isOpen = item.classList.contains('open');
+    if (isOpen) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      requestAnimationFrame(() => { requestAnimationFrame(() => { body.style.maxHeight = '0'; }); });
+      item.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    } else {
+      item.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      body.addEventListener('transitionend', function h() { body.style.maxHeight = 'none'; body.removeEventListener('transitionend', h); });
+    }
+  }
+</script>
+</body>
+</html>
